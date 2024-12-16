@@ -26,6 +26,7 @@
     "moti": "^0.28.1",
     "react": "18.2.0",
     "react-native": "0.73.0",
+    "react-native-devsettings": "^1.0.5",
     "react-native-elements": "^3.4.3",
     "react-native-flash-message": "^0.4.2",
     "react-native-gesture-handler": "^2.16.0",

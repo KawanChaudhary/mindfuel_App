@@ -9,6 +9,7 @@ import HomeNavigator from './Home/HomeNavigator';
 import ProfileNavigator from './Profile/ProfileNavigator';
 import ReadListNavigator from './ReadList/ReadListNavigator';
 import SearchNavigator from './Search/SearchNavigator';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +47,7 @@ const tabs = [
 const BottomTabNavigator = () => {
 
   const { theme } = useContext(ThemeContext);
+  const { auth } = useContext(AuthContext);
 
   const renderTabIcon = ({ tab, focused }) => {
 
@@ -80,7 +82,7 @@ const BottomTabNavigator = () => {
           borderTopColor: theme.colors.backgroundLight},
       }}>
       {tabs.map((tab, index) => (
-        <Tab.Screen
+        (auth || tab.name !== 'ReadListNavigator' ) && <Tab.Screen
           key={index}
           name={tab.name}
           component={tab.screen}

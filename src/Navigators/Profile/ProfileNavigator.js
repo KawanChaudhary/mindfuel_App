@@ -1,19 +1,12 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import LoggedUserNavigator from './LoggedUserNavigator';
 import NotLoggedNavigator from './NotLoggedNavigator';
-import { AuthContext } from '../../Contexts/AuthContext';
+import {AuthContext} from '../../Contexts/AuthContext';
 
 const ProfileNavigator = () => {
+  const {auth} = useContext(AuthContext);
 
-    const { auth } = useContext(AuthContext);
-
-    return (
-        auth ?
-            <LoggedUserNavigator />
-            :
-            <NotLoggedNavigator />
-    );
+  return auth ? <LoggedUserNavigator /> : <NotLoggedNavigator />;
 };
 
 export default ProfileNavigator;
-
