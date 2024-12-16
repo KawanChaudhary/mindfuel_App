@@ -117,6 +117,7 @@ export default function LoginScreen() {
           />
           <TextInput
             ref={textInputRef}
+            value={email}
             style={[styles.TextInput, {color: theme.colors.text}]}
             placeholder="example@gmail.com"
             placeholderTextColor={theme.name === 'light' ? 'lightgrey' : 'grey'}
@@ -145,6 +146,7 @@ export default function LoginScreen() {
           />
           <TextInput
             ref={textInputRef}
+            value={password}
             style={[styles.TextInput, {color: theme.colors.text}]}
             placeholder="6+ strong characters"
             placeholderTextColor={theme.name === 'light' ? 'lightgrey' : 'grey'}
