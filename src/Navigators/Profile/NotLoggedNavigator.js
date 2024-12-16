@@ -4,6 +4,7 @@ import LoginScreen from '../../Screens/Profile/LoginScreen';
 import SignUpScreen from '../../Screens/Profile/SignUpScreen';
 import {StyleSheet, View} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
+import ForgotPasswordScreen from '../../Screens/Profile/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ const NotLoggedNavigator = () => {
           options={{headerShown: false}}
           name="signup"
           component={SignUpScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="forgotpassword"
+          component={ForgotPasswordScreen}
         />
       </Stack.Navigator>
       <FlashMessage position="top" />
