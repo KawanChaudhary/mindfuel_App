@@ -1,12 +1,12 @@
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Skeleton } from 'moti/skeleton';
-import { defaultImageFunc, editDate, truncateTitle } from '../../../Data/commonFunctions';
+import { defaultImageFunc, editDate, shareContent, truncateTitle } from '../../../Data/commonFunctions';
 import HorizontalLine from '../../GeneralScreens/HorizontalLine';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-const HomeListSkeleton = ({ loading, story, theme}) => {
+const HomeListSkeleton = ({ loading, story, theme, showShare = true}) => {
 
     const navigation = useNavigation();
 
@@ -67,12 +67,12 @@ const HomeListSkeleton = ({ loading, story, theme}) => {
                                 {story.readtime} min read • {editDate(story.createdAt)}
                             </Text>
 
-                            <View style={styles.storyIcons}>
-                                <TouchableOpacity >
+                            {showShare && <View style={styles.storyIcons}>
+                                <TouchableOpacity onPress={() => shareContent(story)} >
                                     <Ionicons name={'share-outline'} color={theme.colors.text} size={18} />
                                 </TouchableOpacity>
 
-                            </View>
+                            </View>}
                         </View>
                     }
                 </Skeleton>

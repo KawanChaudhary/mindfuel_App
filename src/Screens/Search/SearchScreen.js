@@ -40,7 +40,7 @@ const SearchScreen = () => {
     };
 
     const renderStory = ({ item }) => (
-        <HomeListSkeleton loading={loading} story={item} theme={theme} />
+        <HomeListSkeleton loading={loading} story={item} theme={theme} showShare={false} />
     );
 
     return (
