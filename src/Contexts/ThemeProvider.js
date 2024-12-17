@@ -1,5 +1,4 @@
-// ThemeProvider.js
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { lightTheme, darkTheme } from '../Data/theme';
 import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,48 +7,51 @@ export const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
   const systemTheme = useColorScheme();
-  const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  const [currentTheme, setCurrentTheme] = useState(systemTheme === 'dark' ? darkTheme : lightTheme);
+  const [userPreference, setUserPreference] = useState(null);
 
-  const toggleTheme = () => {
-    setCurrentTheme(currentTheme === lightTheme ? darkTheme : lightTheme);
-  };
-
-  const getUserTheme = useCallback(async () => {
-    return await AsyncStorage.getItem('theme');
-  }, []);
-
-  const setUserTheme = async (userTheme) => {
-    await AsyncStorage.setItem('theme', userTheme);
-    await themeVal();
-  };
-
-  const themeVal = useCallback(async () => {
-    const themeValue = await getUserTheme();
-
-    if (themeValue === 'system') {
-      await setThemeValue(systemTheme);
-    }
-    else {
-      await setThemeValue(themeValue);
-    }
-  }, [getUserTheme, systemTheme]);
-
-  const setThemeValue = async (themeName) => {
+  const updateTheme = useCallback((themeName) => {
     if (themeName === 'dark') {
       setCurrentTheme(darkTheme);
-    }
-    else {
+    } else if (themeName === 'light') {
       setCurrentTheme(lightTheme);
+    } else {
+      setCurrentTheme(systemTheme === 'dark' ? darkTheme : lightTheme);
+    }
+  }, [systemTheme]);
+
+  const loadUserTheme = useCallback(async () => {
+    try {
+      const savedTheme = await AsyncStorage.getItem('theme');
+      setUserPreference(savedTheme);
+      updateTheme(savedTheme);
+    } catch (error) {
+      console.error('Error loading user theme:', error);
+    }
+  }, [updateTheme]);
+
+  const setUserTheme = async (themeName) => {
+    try {
+      await AsyncStorage.setItem('theme', themeName);
+      setUserPreference(themeName);
+      updateTheme(themeName);
+    } catch (error) {
+      console.error('Error saving user theme:', error);
     }
   };
 
   useEffect(() => {
+    loadUserTheme();
+  }, [loadUserTheme]);
 
-    themeVal();
-  }, [systemTheme, themeVal]);
+  useEffect(() => {
+    if (userPreference === 'system' || !userPreference) {
+      updateTheme('system');
+    }
+  }, [systemTheme, userPreference, updateTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme, getUserTheme, setUserTheme }}>
+    <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme: () => setUserTheme(currentTheme === lightTheme ? 'dark' : 'light'), setUserTheme }}>
       {children}
     </ThemeContext.Provider>
   );
