@@ -6,11 +6,13 @@ import axiosInstance from '../../axiosInstance';
 import {showMessage} from 'react-native-flash-message';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Loader from '../../Components/GeneralScreens/Loader';
 
 const ForgotPasswordScreen = () => {
   const {theme} = useContext(ThemeContext);
   const navigation = useNavigation();
 
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [emailicon, setEmailicon] = useState('email-outline');
   const [focus, setFocus] = useState(false);
@@ -42,94 +44,101 @@ const ForgotPasswordScreen = () => {
 
   const forgotpasswordHandler = async () => {
     try {
+      setLoading(true);
       const {data} = await axiosInstance.post('/auth/forgotpassword', {email});
       showMessage({
         message: data.message,
         type: 'success',
         animationDuration: 600,
       });
-      navigation.navigate('login');
+      setTimeout(() => navigation.navigate('login'), 2000);
     } catch (err) {
       showMessage({
         message: err.response.data.error,
         type: 'danger',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const isFormDisabled = !validateEmail(email);
 
   return (
-    <View
-      style={[styles.container, {backgroundColor: theme.colors.background}]}>
-      <View style={styles.info}>
-        <Text style={[styles.infoTop, {color: theme.colors.text}]}>
-          Forgot Password
-        </Text>
-        <Text style={[styles.infoBottom, {color: theme.colors.text}]}>
-          Please enter the email address you register your account with.
-        </Text>
-        <Text style={[styles.infoBottom, {color: theme.colors.text}]}>
-          We will send you reset password link to this email.
-        </Text>
-      </View>
+    <Loader loading={loading}>
+      <View
+        style={[styles.container, {backgroundColor: theme.colors.background}]}>
+        <View style={styles.info}>
+          <Text style={[styles.infoTop, {color: theme.colors.text}]}>
+            Forgot Password
+          </Text>
+          <Text style={[styles.infoBottom, {color: theme.colors.text}]}>
+            Please enter the email address you register your account with.
+          </Text>
+          <Text style={[styles.infoBottom, {color: theme.colors.text}]}>
+            We will send you reset password link to this email.
+          </Text>
+        </View>
 
-      <View>
-        <View
-          style={[
-            styles.inputView,
-            {
-              borderColor: focus.emailFocus
-                ? theme.colors.secondary
-                : theme.colors.backgroundLight,
-            },
-          ]}>
-          <MaterialCommunityIcons
-            name={emailicon}
-            size={24}
-            color={
-              focus.emailFocus ? theme.colors.secondary : theme.colors.text
-            }
-          />
-          <TextInput
-            style={[styles.TextInput, {color: theme.colors.text}]}
-            placeholder="example@gmail.com"
-            placeholderTextColor={theme.name === 'light' ? 'lightgrey' : 'grey'}
-            onChangeText={value => setEmail(value)}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            onFocus={handleFocusEmail}
-            onBlur={handleBlurEmail}
-          />
+        <View>
+          <View
+            style={[
+              styles.inputView,
+              {
+                borderColor: focus.emailFocus
+                  ? theme.colors.secondary
+                  : theme.colors.backgroundLight,
+              },
+            ]}>
+            <MaterialCommunityIcons
+              name={emailicon}
+              size={24}
+              color={
+                focus.emailFocus ? theme.colors.secondary : theme.colors.text
+              }
+            />
+            <TextInput
+              style={[styles.TextInput, {color: theme.colors.text}]}
+              placeholder="example@gmail.com"
+              placeholderTextColor={
+                theme.name === 'light' ? 'lightgrey' : 'grey'
+              }
+              onChangeText={value => setEmail(value)}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              onFocus={handleFocusEmail}
+              onBlur={handleBlurEmail}
+            />
+          </View>
+        </View>
+        <View style={styles.parentContainer}>
+          <TouchableOpacity
+            disabled={isFormDisabled}
+            onPress={forgotpasswordHandler}
+            style={[
+              styles.loginBtn,
+              {
+                backgroundColor: isFormDisabled
+                  ? disabledColor
+                  : theme.colors.secondary,
+              },
+            ]}>
+            <Text style={[styles.loginText]}>Send Email</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.signUpBtn}>
+          <Text style={[styles.signUpText, {color: theme.colors.text}]}>
+            Have an account?
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('login')}>
+            <Text style={[styles.signUpText, {color: theme.colors.secondary}]}>
+              Sign In
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.parentContainer}>
-        <TouchableOpacity
-          disabled={isFormDisabled}
-          onPress={forgotpasswordHandler}
-          style={[
-            styles.loginBtn,
-            {
-              backgroundColor: isFormDisabled
-                ? disabledColor
-                : theme.colors.secondary,
-            },
-          ]}>
-          <Text style={[styles.loginText]}>Send Email</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.signUpBtn}>
-        <Text style={[styles.signUpText, {color: theme.colors.text}]}>
-          Have an account?
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('login')}>
-          <Text style={[styles.signUpText, {color: theme.colors.secondary}]}>
-            Sign In
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </Loader>
   );
 };
 
@@ -144,6 +153,7 @@ const styles = StyleSheet.create({
   },
   info: {
     gap: 5,
+    width: '90%',
   },
   infoTop: {
     fontSize: 30,

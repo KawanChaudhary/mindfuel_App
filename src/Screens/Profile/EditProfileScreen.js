@@ -1,37 +1,50 @@
-import { Alert, Image, PermissionsAndroid, StyleSheet, Text, TextInput, View } from 'react-native';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ThemeContext } from '../../Contexts/ThemeProvider';
-import { AuthContext } from '../../Contexts/AuthContext';
+import {
+  Alert,
+  Image,
+  PermissionsAndroid,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {ThemeContext} from '../../Contexts/ThemeProvider';
+import {AuthContext} from '../../Contexts/AuthContext';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import Header from '../../Components/GeneralScreens/Header';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { defaultImage } from '../../Data/default';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { showMessage } from 'react-native-flash-message';
-import { useNavigation } from '@react-navigation/native';
+import {defaultImage} from '../../Data/default';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
+import {useNavigation} from '@react-navigation/native';
 import {axiosFormInstance} from '../../axiosInstance';
+import Loader from '../../Components/GeneralScreens/Loader';
 
 const EditProfileScreen = () => {
-  const { theme } = useContext(ThemeContext);
-  const { activeUser, setUserConfig, controlAuth } = useContext(AuthContext);
+  const {theme} = useContext(ThemeContext);
+  const {activeUser, setUserConfig, controlAuth} = useContext(AuthContext);
 
   const navigation = useNavigation();
 
-  const userPhoto = `${activeUser.photo == null || activeUser.photo === '' ? defaultImage : activeUser.photo}`;
+  const userPhoto = `${
+    activeUser.photo == null || activeUser.photo === ''
+      ? defaultImage
+      : activeUser.photo
+  }`;
 
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState(userPhoto);
 
   const textInputRef = useRef(null);
 
-  const setCursorColor = (color) => {
+  const setCursorColor = color => {
     if (textInputRef.current) {
-      textInputRef.current.setNativeProps({ cursorColor: color });
+      textInputRef.current.setNativeProps({cursorColor: color});
     }
   };
-
 
   useEffect(() => {
     setUsername(activeUser.username);
@@ -40,7 +53,7 @@ const EditProfileScreen = () => {
     setCursorColor(theme.colors.text);
   }, [activeUser, theme, userPhoto]);
 
-  const validateEmail = (checkEmail) => {
+  const validateEmail = checkEmail => {
     return /\S+@\S+\.\S+/.test(checkEmail);
   };
 
@@ -50,7 +63,7 @@ const EditProfileScreen = () => {
 
   const options = {
     title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
     storageOptions: {
       skipBackup: true,
       path: 'images',
@@ -72,7 +85,7 @@ const EditProfileScreen = () => {
           onPress: () => launchGallery(),
         },
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
   };
 
@@ -86,7 +99,7 @@ const EditProfileScreen = () => {
           buttonNeutral: 'Ask Me Later',
           buttonNegative: 'Cancel',
           buttonPositive: 'OK',
-        }
+        },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         return true;
@@ -99,7 +112,10 @@ const EditProfileScreen = () => {
   };
 
   const launchCameraFromApp = async () => {
-    if (PermissionsAndroid.RESULTS.GRANTED || await requestCameraPermission()) {
+    if (
+      PermissionsAndroid.RESULTS.GRANTED ||
+      (await requestCameraPermission())
+    ) {
       await launchCamera(options, response => {
         handleImageResponse(response);
       });
@@ -126,9 +142,10 @@ const EditProfileScreen = () => {
       uri: photo,
       type: 'image/jpeg',
       name: 'userPhoto',
-  });
+    });
 
     try {
+      setLoading(true);
       const config = await setUserConfig();
       await axiosFormInstance.post('/user/editProfile', formdata, config);
 
@@ -137,76 +154,115 @@ const EditProfileScreen = () => {
         type: 'success',
       });
       await controlAuth();
-      navigation.reset({ routes: [{ name: 'ProfileNavigator' }] });
-    }
-    catch (err) {
+      navigation.reset({routes: [{name: 'ProfileNavigator'}]});
+    } catch (err) {
       console.log(err.response.data.error);
       showMessage({
         message: err.response.data.error,
         type: 'danger',
       });
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <CustomizeStatusBar />
-      <Header title="Edit Profile" showBackButton={true} />
-      <View style={styles.basicInfo}>
+    <Loader loading={loading}>
+      <View
+        style={[styles.container, {backgroundColor: theme.colors.background}]}>
+        <CustomizeStatusBar />
+        <Header title="Edit Profile" showBackButton={true} />
+        <View style={styles.basicInfo}>
+          {/* Image */}
+          <View
+            style={[
+              styles.imageBorder,
+              {backgroundColor: theme.colors.secondary},
+            ]}>
+            <Image source={{uri: photo}} style={styles.userPhoto} />
+            <TouchableOpacity
+              onPress={selectImage}
+              style={[
+                styles.changeImageBtn,
+                {backgroundColor: theme.colors.backgroundLight},
+              ]}>
+              <MaterialCommunityIcons
+                name="camera"
+                size={24}
+                color={theme.colors.text}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* UserName */}
+        <View style={styles.details}>
+          <View
+            style={[
+              styles.detailsRow,
+              {backgroundColor: theme.colors.backgroundLight},
+            ]}>
+            <MaterialCommunityIcons
+              name="account-outline"
+              size={24}
+              color={theme.colors.secondary}
+            />
 
-        {/* Image */}
-        <View style={[styles.imageBorder, { backgroundColor: theme.colors.secondary }]}>
-          <Image source={{ uri: photo }} style={styles.userPhoto} />
-          <TouchableOpacity onPress={selectImage} style={[styles.changeImageBtn, { backgroundColor: theme.colors.backgroundLight }]}>
+            <TextInput
+              style={[styles.detailsRowText, {color: theme.colors.text}]}
+              ref={textInputRef}
+              value={username}
+              onChangeText={value => setUsername(value)}
+              placeholder="username"
+              autoCapitalize="none"
+              placeholderTextColor={
+                theme.name === 'light' ? 'lightgrey' : 'grey'
+              }
+            />
+          </View>
 
-            <MaterialCommunityIcons name="camera" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
+          {/* Email */}
+          <View
+            style={[
+              styles.detailsRow,
+              {backgroundColor: theme.colors.backgroundLight},
+            ]}>
+            <MaterialCommunityIcons
+              name="email-outline"
+              size={24}
+              color={theme.colors.secondary}
+            />
+
+            <TextInput
+              style={[styles.detailsRowText, {color: theme.colors.text}]}
+              ref={textInputRef}
+              value={email}
+              onChangeText={value => setEmail(value)}
+              placeholder="example@gmail.com"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              placeholderTextColor={
+                theme.name === 'light' ? 'lightgrey' : 'grey'
+              }
+            />
+          </View>
         </View>
 
-
+        <TouchableOpacity
+          style={[
+            styles.saveBtn,
+            {
+              backgroundColor: isFormDisabled
+                ? disabledColor
+                : theme.colors.secondary,
+            },
+          ]}
+          disabled={isFormDisabled}
+          onPress={handleSubmit}>
+          <Text style={styles.saveText}>Save Changes</Text>
+        </TouchableOpacity>
       </View>
-      {/* UserName */}
-      <View style={styles.details}>
-
-        <View style={[styles.detailsRow, { backgroundColor: theme.colors.backgroundLight }]}>
-          <MaterialCommunityIcons name="account-outline" size={24} color={theme.colors.secondary} />
-
-          <TextInput style={[styles.detailsRowText, { color: theme.colors.text }]}
-            ref={textInputRef}
-            value={username}
-            onChangeText={(value) => setUsername(value)}
-            placeholder="username"
-            autoCapitalize="none"
-            placeholderTextColor={theme.name === 'light' ? 'lightgrey' : 'grey'}
-          />
-        </View>
-
-        {/* Email */}
-        <View style={[styles.detailsRow, { backgroundColor: theme.colors.backgroundLight }]}>
-          <MaterialCommunityIcons name="email-outline" size={24} color={theme.colors.secondary} />
-
-          <TextInput style={[styles.detailsRowText, { color: theme.colors.text }]}
-            ref={textInputRef}
-            value={email}
-            onChangeText={(value) => setEmail(value)}
-            placeholder="example@gmail.com"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            placeholderTextColor={theme.name === 'light' ? 'lightgrey' : 'grey'}
-          />
-        </View>
-
-      </View>
-
-      <TouchableOpacity
-        style={[styles.saveBtn, { backgroundColor: isFormDisabled ? disabledColor : theme.colors.secondary }]}
-        disabled={isFormDisabled}
-        onPress={handleSubmit}
-      >
-        <Text style={styles.saveText}>Save Changes</Text>
-      </TouchableOpacity>
-
-    </View>
+    </Loader>
   );
 };
 
@@ -288,4 +344,3 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
-
