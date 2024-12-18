@@ -1,9 +1,8 @@
 import React, {useContext, useState, useCallback} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, RefreshControl, Text} from 'react-native';
 import axiosInstance from '../../axiosInstance';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
-import Loader from '../GeneralScreens/Loader';
 import {useFocusEffect} from '@react-navigation/native';
 
 const AllStory = () => {
@@ -21,6 +20,7 @@ const AllStory = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchStories = async (pageNum = 1, searchKey = '') => {
     if (!hasMore && pageNum !== 1) {
@@ -47,6 +47,7 @@ const AllStory = () => {
       console.error('Error fetching stories:', error.message);
     } finally {
       setLoadingMore(false);
+      setRefreshing(false);
     }
   };
 
@@ -63,6 +64,12 @@ const AllStory = () => {
       fetchStories(page + 1);
       setPage(prevPage => prevPage + 1);
     }
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchStories(1);
+    setPage(1);
   };
 
   const renderStory = useCallback(
@@ -94,6 +101,18 @@ const AllStory = () => {
         windowSize={5}
         getItemLayout={getItemLayout}
         removeClippedSubviews={true}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.primary}
+          />
+        }
+        ListEmptyComponent={
+          !loading && stories.length === 0 ? (
+            <Text style={styles.emptyText}>No stories available</Text>
+          ) : null
+        }
       />
     </View>
   );
@@ -104,5 +123,11 @@ export default AllStory;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+    color: '#666',
   },
 });
