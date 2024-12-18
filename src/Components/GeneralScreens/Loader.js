@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const OverlayLoader = ({loading, children}) => {
+const Loader = ({loading, children}) => {
   const pathFile = require('../../../assets/loader/loader.json');
 
   return (
@@ -28,7 +28,7 @@ const OverlayLoader = ({loading, children}) => {
   );
 };
 
-export default OverlayLoader;
+export default Loader;
 
 const styles = StyleSheet.create({
   container: {

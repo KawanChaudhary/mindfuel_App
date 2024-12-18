@@ -89,7 +89,6 @@ const AllStory = () => {
         keyExtractor={item => item._id}
         onEndReached={loadMoreStories}
         onEndReachedThreshold={0.5}
-        ListFooterComponent={<Loader loading={loadingMore} />}
         initialNumToRender={12}
         maxToRenderPerBatch={8}
         windowSize={5}
