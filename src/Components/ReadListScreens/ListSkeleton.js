@@ -7,116 +7,108 @@ import {
   shareContent,
   truncateTitle,
 } from '../../Data/commonFunctions';
-import HorizontalLine from '../GeneralScreens/HorizontalLine';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ListSkeleton = ({loading, theme, story, navigation, onPressBookmark}) => {
   const colormode = theme.name;
 
   return (
-    <>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('DetailStory', {storySlug: story.slug})
-        }
-        style={[styles.listSkeletonContainer]}>
-        {/* User Name and Photo */}
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('DetailStory', {storySlug: story.slug})
+      }
+      style={[styles.listSkeletonContainer]}>
+      {/* User Name and Photo */}
 
-        <View style={[styles.authorInfo]}>
+      <View style={[styles.authorInfo]}>
+        <Skeleton width={20} height={20} radius={'round'} colorMode={colormode}>
+          {loading ? null : (
+            <Image
+              source={{uri: defaultImageFunc(story.author.photo)}}
+              style={styles.authorPhoto}
+            />
+          )}
+        </Skeleton>
+        <Skeleton width={'50%'} height={10} radius={0} colorMode={colormode}>
+          {loading ? null : (
+            <Text style={[styles.username, {color: theme.colors.text}]}>
+              {story.author.username}
+            </Text>
+          )}
+        </Skeleton>
+      </View>
+
+      {/* Story Title */}
+      <View style={[styles.storyDetails]}>
+        <View style={styles.titleContainer}>
           <Skeleton
-            width={20}
-            height={20}
-            radius={'round'}
-            colorMode={colormode}>
+            width={'100%'}
+            height={10}
+            radius={0}
+            colorMode={colormode}
+            key={story.title}>
             {loading ? null : (
-              <Image
-                source={{uri: defaultImageFunc(story.author.photo)}}
-                style={styles.authorPhoto}
-              />
-            )}
-          </Skeleton>
-          <Skeleton width={'50%'} height={10} radius={0} colorMode={colormode}>
-            {loading ? null : (
-              <Text style={[styles.username, {color: theme.colors.text}]}>
-                {story.author.username}
+              <Text style={[styles.title, {color: theme.colors.text}]}>
+                {truncateTitle(story.title)}
               </Text>
             )}
           </Skeleton>
-        </View>
-
-        {/* Story Title */}
-        <View style={[styles.storyDetails]}>
-          <View style={styles.titleContainer}>
+          {loading && (
             <Skeleton
-              width={'100%'}
+              width={'50%'}
               height={10}
               radius={0}
               colorMode={colormode}
-              key={story.title}>
-              {loading ? null : (
-                <Text style={[styles.title, {color: theme.colors.text}]}>
-                  {truncateTitle(story.title)}
-                </Text>
-              )}
-            </Skeleton>
-            {loading && (
-              <Skeleton
-                width={'50%'}
-                height={10}
-                radius={0}
-                colorMode={colormode}
-              />
-            )}
-          </View>
-          <Skeleton
-            width={100}
-            height={50}
-            radius={0}
-            key={story.image}
-            colorMode={colormode}>
-            {loading ? null : (
-              <Image source={{uri: story.image}} style={styles.storyImage} />
-            )}
-          </Skeleton>
+            />
+          )}
         </View>
-
-        {/* Other Details */}
-
         <Skeleton
-          width={'50%'}
-          height={10}
+          width={100}
+          height={50}
           radius={0}
           key={story.image}
           colorMode={colormode}>
           {loading ? null : (
-            <View style={styles.otherDetails}>
-              <Text style={[styles.detailsText, {}]}>
-                {story.readtime} min read • {editDate(story.createdAt)}
-              </Text>
-
-              <View style={styles.storyIcons}>
-                <TouchableOpacity onPress={() => onPressBookmark(story.slug)}>
-                  <Ionicons
-                    name={'bookmark'}
-                    color={theme.colors.text}
-                    size={18}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => shareContent(story)}>
-                  <Ionicons
-                    name={'share-outline'}
-                    color={theme.colors.text}
-                    size={18}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+            <Image source={{uri: story.image}} style={styles.storyImage} />
           )}
         </Skeleton>
-      </TouchableOpacity>
-      <HorizontalLine />
-    </>
+      </View>
+
+      {/* Other Details */}
+
+      <Skeleton
+        width={'50%'}
+        height={10}
+        radius={0}
+        key={story.image}
+        colorMode={colormode}>
+        {loading ? null : (
+          <View style={styles.otherDetails}>
+            <Text style={[styles.detailsText, {}]}>
+              {story.readtime} min read • {editDate(story.createdAt)}
+            </Text>
+
+            <View style={styles.storyIcons}>
+              <TouchableOpacity onPress={() => onPressBookmark(story.slug)}>
+                <Ionicons
+                  name={'bookmark'}
+                  color={theme.colors.text}
+                  size={18}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => shareContent(story)}>
+                <Ionicons
+                  name={'share-outline'}
+                  color={theme.colors.text}
+                  size={18}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </Skeleton>
+    </TouchableOpacity>
   );
 };
 
@@ -126,7 +118,7 @@ const styles = StyleSheet.create({
   listSkeletonContainer: {
     paddingHorizontal: 15,
     gap: 10,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   authorInfo: {
     flexDirection: 'row',
@@ -168,6 +160,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   otherDetails: {
+    marginTop: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

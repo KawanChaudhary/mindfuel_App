@@ -1,9 +1,10 @@
 import React, {useContext, useEffect, useState, useCallback} from 'react';
-import {StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import axiosInstance from '../../axiosInstance';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
 import Loader from '../GeneralScreens/Loader';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AllStory = () => {
   const {theme} = useContext(ThemeContext);
@@ -26,7 +27,7 @@ const AllStory = () => {
       return;
     }
 
-    const pageSize = 12; // Fetch 12 stories at a time
+    const pageSize = 12;
     const searchParam = searchKey ? `&search=${searchKey}` : '';
 
     try {
@@ -41,18 +42,20 @@ const AllStory = () => {
       }
 
       setHasMore(data.data.length === pageSize);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching stories:', error.message);
     } finally {
-      setLoading(false);
       setLoadingMore(false);
     }
   };
 
-  useEffect(() => {
-    setLoading(true);
-    fetchStories(1);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchStories(1);
+    }, []),
+  );
 
   const loadMoreStories = () => {
     if (!loadingMore && hasMore) {
@@ -62,7 +65,6 @@ const AllStory = () => {
     }
   };
 
-  // Render each story item
   const renderStory = useCallback(
     ({item}) => (
       <HomeListSkeleton loading={loading} story={item} theme={theme} />
@@ -70,10 +72,9 @@ const AllStory = () => {
     [loading, theme],
   );
 
-  // Optimize FlatList's layout calculation
   const getItemLayout = useCallback(
     (_, index) => ({
-      length: 120, // Approximate height of each item
+      length: 120,
       offset: 120 * index,
       index,
     }),

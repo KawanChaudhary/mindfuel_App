@@ -14,7 +14,7 @@ const HomeListSkeleton = ({ loading, story, theme, showShare = true}) => {
 
     return (
         <>
-            <TouchableOpacity onPress={() => navigation.navigate('DetailStory', { storySlug: story.slug })}
+            <TouchableOpacity onPress={() => !loading && navigation.navigate('DetailStory', { storySlug: story.slug })}
             style={[styles.listSkeletonContainer]}>
 
                 {/* User Name and Photo */}
@@ -87,8 +87,8 @@ export default HomeListSkeleton;
 const styles = StyleSheet.create({
     listSkeletonContainer: {
         paddingHorizontal: 15,
-        gap: 10,
-        marginVertical: 10,
+        gap: 5,
+        marginVertical: 5,
     },
     authorInfo: {
         flexDirection: 'row',
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     otherDetails: {
+        marginTop:15,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

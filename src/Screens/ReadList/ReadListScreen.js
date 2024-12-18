@@ -1,11 +1,10 @@
 import React, {useCallback, useContext, useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import Header from '../../Components/GeneralScreens/Header';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
 import {AuthContext} from '../../Contexts/AuthContext';
 import UserTab from '../../Components/ReadListScreens/UserTab';
-import {ScrollView} from 'moti';
 
 import axios from '../../axiosInstance';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -99,32 +98,25 @@ const ReadListScreen = () => {
     <View
       style={[styles.container, {backgroundColor: theme.colors.background}]}>
       <CustomizeStatusBar />
+      <Header title="Your library" showBackButton={false} />
+      <UserTab activeUser={activeUser} theme={theme} loading={loading} />
 
-      <SafeAreaView>
-        <ScrollView>
-          <Header title="Your library" showBackButton={false} />
+      {/* ReadList Text */}
+      <Text style={[styles.readListText, {color: theme.colors.text}]}>
+        {!loading && 'Reading List'}
+      </Text>
+      <HorizontalLine theme={theme} />
 
-          {/* User Tab */}
-          <UserTab activeUser={activeUser} theme={theme} loading={loading} />
-
-          {/* ReadList Text */}
-          <Text style={[styles.readListText, {color: theme.colors.text}]}>
-            {!loading && 'Reading List'}
-          </Text>
-
-          <HorizontalLine theme={theme} />
-        </ScrollView>
-
-        {loading || anyStory ? (
-          <FlatList
-            data={readList}
-            renderItem={renderStory}
-            keyExtractor={item => item._id}
-          />
-        ) : (
-          <NoItemInList theme={theme} navigation={navigation} />
-        )}
-      </SafeAreaView>
+      <FlatList
+        data={readList}
+        renderItem={renderStory}
+        keyExtractor={item => item._id}
+        ItemSeparatorComponent={<HorizontalLine theme={theme} />}
+        ListEmptyComponent={
+          !loading &&
+          !anyStory && <NoItemInList theme={theme} navigation={navigation} />
+        }
+      />
     </View>
   );
 };

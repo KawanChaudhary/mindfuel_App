@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -12,7 +12,7 @@ import {AuthContext} from '../../Contexts/AuthContext';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import {defaultImage} from '../../Data/default';
 import {Skeleton} from 'moti/skeleton';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import HorizontalLine from '../../Components/GeneralScreens/HorizontalLine';
 import axiosInstance from '../../axiosInstance';
 import {showMessage} from 'react-native-flash-message';
@@ -54,9 +54,11 @@ const ProfileScreen = () => {
     }
   }, [setUserConfig]);
 
-  useEffect(() => {
-    getStories();
-  }, [getStories]);
+  useFocusEffect(
+    useCallback(() => {
+      getStories();
+    }, [getStories]),
+  );
 
   const userPhoto = `${
     activeUser.photo == null || activeUser.photo === ''
@@ -171,16 +173,14 @@ const ProfileScreen = () => {
         </Text>
 
         <HorizontalLine />
-
-        {loading || anyStory ? (
-          <FlatList
-            data={myStories}
-            renderItem={renderStory}
-            keyExtractor={item => item._id}
-          />
-        ) : (
-          <MyStoriesEmpty theme={theme} navigation={navigation} />
-        )}
+        <FlatList
+          data={myStories}
+          renderItem={renderStory}
+          keyExtractor={item => item._id}
+          ListEmptyComponent={
+            !loading && !anyStory && <MyStoriesEmpty theme={theme} navigation={navigation} />
+          }
+        />
       </View>
     </View>
   );

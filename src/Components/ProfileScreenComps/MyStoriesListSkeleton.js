@@ -1,7 +1,11 @@
 import {Image, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Skeleton} from 'moti/skeleton';
-import {editDate, shareContent, truncateTitle} from '../../Data/commonFunctions';
+import {
+  editDate,
+  shareContent,
+  truncateTitle,
+} from '../../Data/commonFunctions';
 import HorizontalLine from '../GeneralScreens/HorizontalLine';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
   listSkeletonContainer: {
     paddingHorizontal: 15,
     gap: 10,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   authorInfo: {
     flexDirection: 'row',
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   otherDetails: {
+    marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
