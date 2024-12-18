@@ -1,29 +1,47 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View, StyleSheet, Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const Loader = ({children, loading}) => {
+const OverlayLoader = ({loading, children}) => {
   const pathFile = require('../../../assets/loader/loader.json');
 
-  if (!loading) {
-    return <View style={styles.loader}>{children}</View>;
-  }
-
   return (
-    <LottieView source={pathFile} autoPlay loop style={styles.container} />
+    <View style={styles.container}>
+      {children}
+      {loading && (
+        <Modal
+          visible={loading}
+          transparent={true}
+          animationType="fade"
+          statusBarTranslucent={true}>
+          <View style={styles.overlay}>
+            <LottieView
+              source={pathFile}
+              autoPlay
+              loop
+              style={styles.lottie}
+            />
+          </View>
+        </Modal>
+      )}
+    </View>
   );
 };
+
+export default OverlayLoader;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    transform: [{scale: 0.5}]
   },
-  loader: {
-    flex: 1,
+  lottie: {
+    width: 150,
+    height: 150,
   },
 });
-
-export default Loader;

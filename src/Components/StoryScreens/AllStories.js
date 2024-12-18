@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState, useCallback} from 'react';
+import React, {useContext, useState, useCallback} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import axiosInstance from '../../axiosInstance';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
@@ -26,11 +26,11 @@ const AllStory = () => {
     if (!hasMore && pageNum !== 1) {
       return;
     }
-
     const pageSize = 12;
     const searchParam = searchKey ? `&search=${searchKey}` : '';
 
     try {
+      setLoading(true);
       const {data} = await axiosInstance.get(
         `/story/getAllStories?page=${pageNum}&limit=${pageSize}${searchParam}`,
       );

@@ -1,5 +1,4 @@
 import React, {useCallback, useContext, useState} from 'react';
-import Header from '../../Components/GeneralScreens/Header';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import {View} from 'moti';
 import {
@@ -190,12 +189,12 @@ const DetailStoryScreen = ({route}) => {
         {backgroundColor: theme.colors.backgroundLight},
       ]}>
       <CustomizeStatusBar />
-      <HeaderWithIcon
-        title="Story"
-        showBackButton={true}
-        handleIconPress={() => shareContent(story)}
-        iconName={'share-outline'}
-      />
+        <HeaderWithIcon
+          title="Story"
+          showBackButton={true}
+          handleIconPress={() => shareContent(story)}
+          iconName={'share-outline'}
+        />
       <Loader loading={loading}>
         <ScrollView>
           <UserInfoBar
