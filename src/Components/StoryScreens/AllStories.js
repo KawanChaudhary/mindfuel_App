@@ -15,6 +15,8 @@ const AllStory = () => {
     {_id: '4', title: 'Item 4'},
     {_id: '5', title: 'Item 4'},
     {_id: '6', title: 'Item 4'},
+    {_id: '7', title: 'Item 4'},
+    {_id: '8', title: 'Item 4'},
   ]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -29,8 +31,8 @@ const AllStory = () => {
     const pageSize = 12;
     const searchParam = searchKey ? `&search=${searchKey}` : '';
 
+    setLoading(true);
     try {
-      setLoading(true);
       const {data} = await axiosInstance.get(
         `/story/getAllStories?page=${pageNum}&limit=${pageSize}${searchParam}`,
       );
@@ -72,11 +74,8 @@ const AllStory = () => {
     setPage(1);
   };
 
-  const renderStory = useCallback(
-    ({item}) => (
-      <HomeListSkeleton loading={loading} story={item} theme={theme} />
-    ),
-    [loading, theme],
+  const renderStory = ({item}) => (
+    <HomeListSkeleton loading={loading} story={item} theme={theme} />
   );
 
   const getItemLayout = useCallback(

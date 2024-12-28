@@ -2,12 +2,12 @@ import React from 'react';
 import {View, StyleSheet, Modal} from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const Loader = ({loading, children}) => {
+const Loader = ({loading, children, showChildren = true}) => {
   const pathFile = require('../../../assets/loader/loader.json');
 
   return (
     <View style={styles.container}>
-      {children}
+      {showChildren && children}
       {loading && (
         <Modal
           visible={loading}

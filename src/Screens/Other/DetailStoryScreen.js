@@ -22,7 +22,7 @@ import {AuthContext} from '../../Contexts/AuthContext';
 import {showMessage} from 'react-native-flash-message';
 import EditStoryModal from '../../Components/GeneralScreens/DetailStory/EditStory/EditStoryModal';
 import HeaderWithIcon from '../../Components/GeneralScreens/HeaderWithIcon';
-import {shareContent} from '../../Data/commonFunctions';
+import {defaultImageFunc, shareContent} from '../../Data/commonFunctions';
 
 const DetailStoryScreen = ({route}) => {
   const {theme} = useContext(ThemeContext);
@@ -50,20 +50,21 @@ const DetailStoryScreen = ({route}) => {
       const {data} = await axiosInstance.post(`/story/${storySlug}`, {
         activeUser,
       });
-      setStory(data.data);
+      console.log(data.data?.author);
+      setStory(() => data.data);
       setLikeStatus(data.likeStatus);
       setLikeCount(data.data.likeCount);
       setCommentCount(data.data.commentCount);
       const story_id = data.data._id;
-      if (activeUser.readList && activeUser.readList.includes(story_id)) {
-        setStoryReadListStatus(true);
-      } else {
-        setStoryReadListStatus(false);
-      }
+      setStoryReadListStatus(activeUser.readList?.includes(story_id));
+      setLoading(false);
     } catch (error) {
       setStory({});
+      showMessage({
+        message: 'Failed to fetch story details',
+        type: 'danger',
+      });
     }
-    setLoading(false);
   }, [storySlug, setLoading, activeUser]);
 
   useFocusEffect(
@@ -138,7 +139,7 @@ const DetailStoryScreen = ({route}) => {
       } catch (error) {
         setStory({});
         showMessage({
-          message: error.response.data.error,
+          message: error.response?.data?.error || 'Failed to like the story',
           type: 'danger',
         });
       }
@@ -169,7 +170,7 @@ const DetailStoryScreen = ({route}) => {
         setStoryReadListStatus(data.status);
       } catch (error) {
         showMessage({
-          message: `${error.response.data.error}`,
+          message: error.response?.data?.error || 'Failed to bookmark story',
           type: 'danger',
         });
       }
@@ -195,7 +196,7 @@ const DetailStoryScreen = ({route}) => {
           handleIconPress={() => shareContent(story)}
           iconName={'share-outline'}
         />
-      <Loader loading={loading}>
+      <Loader loading={loading} showChildren={!loading}>
         <ScrollView>
           <UserInfoBar
             theme={theme}
@@ -220,10 +221,10 @@ const DetailStoryScreen = ({route}) => {
             <Text style={[styles.titleText, {color: theme.colors.text}]}>
               {story.title}
             </Text>
-            <Image source={{uri: story.image}} style={styles.image} />
+            <Image source={{uri: defaultImageFunc(story.image)}} style={styles.image} />
             <RenderHTML
               contentWidth={width}
-              source={{html: story.content}}
+              source={{html: story.content || '<p>No content available</p>'}}
               tagsStyles={contentStyle}
             />
           </View>
