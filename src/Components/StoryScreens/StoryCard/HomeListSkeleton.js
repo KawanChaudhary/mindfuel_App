@@ -32,7 +32,7 @@ const HomeListSkeleton = ({loading, story, theme, showShare = true}) => {
             height={20}
             radius={'round'}
             colorMode={colormode}>
-            {loading ? null : (
+            {loading || !story.author ? null : (
               <Image
                 source={{uri: defaultImageFunc(story.author.photo)}}
                 style={styles.authorPhoto}
@@ -40,7 +40,7 @@ const HomeListSkeleton = ({loading, story, theme, showShare = true}) => {
             )}
           </Skeleton>
           <Skeleton width={'50%'} height={10} radius={0} colorMode={colormode}>
-            {loading ? null : (
+            {loading || !story.author ? null : (
               <Text style={[styles.username, {color: theme.colors.text}]}>
                 {story.author.username}
               </Text>

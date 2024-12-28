@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import {View} from 'moti';
 import {
@@ -44,19 +44,23 @@ const DetailStoryScreen = ({route}) => {
   // EditStoryModal
   const [editStoryModal, setEditStoryModal] = useState(false);
 
+  useEffect(() => {
+    if(auth){
+      const story_id = story?._id || '123';
+      setStoryReadListStatus(activeUser.readList?.includes(story_id));
+    }
+  }, [activeUser.readList, auth, story?._id]);
+
   const getDetailStory = useCallback(async () => {
     setLoading(true);
     try {
       const {data} = await axiosInstance.post(`/story/${storySlug}`, {
         activeUser,
       });
-      console.log(data.data?.author);
       setStory(() => data.data);
       setLikeStatus(data.likeStatus);
       setLikeCount(data.data.likeCount);
       setCommentCount(data.data.commentCount);
-      const story_id = data.data._id;
-      setStoryReadListStatus(activeUser.readList?.includes(story_id));
       setLoading(false);
     } catch (error) {
       setStory({});
