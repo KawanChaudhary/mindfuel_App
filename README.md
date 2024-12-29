@@ -5,12 +5,10 @@
 
 <h4>Content</h4>
   - * [Live website link](#live-website-link)
-  - * [Configuration and Setup](#configuration-and-setup)
   - * [Key Features](#key-features)
   - * [Technologies used](#technologies-used)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
-      - [Database](#database)
+      - [Mobile App](#mobile-app)
+  - * [Configuration and Setup](#configuration-and-setup)
   - * [Author](#author)
   - * [Other Details](#other-details)
   - * [License](#license)
@@ -21,11 +19,38 @@
 
 <h5>If you enjoy the content, please register and contribute a well-written story.</h5>
 
+##  Key Features
+
+- User registration and login
+- Authentication using JWT Tokens
+- Story searching with debouncing 
+- CRUD operations (Story create, read, update and delete)
+- Upload user images and story images to the server
+- Liking stories and adding stories to the Reading list
+- Commenting on the story
+- Skeleton loading effect
+- Responsive Design
+- Sharing direct link on social handles
+- Optmized Flatlist
+- Global state management with redux and implemented redux-saga
+
+##  Technologies used
+
+This project was created using the following technologies.
+
+####  Mobile App 
+- [React Native CLI](https://www.npmjs.com/package/@react-native-community/cli) - Command line tools that help you build apps with react-native.
+- [React Hooks](https://reactjs.org/docs/hooks-intro.html) - For managing and centralizing application state
+- [React Native Navigation](https://www.npmjs.com/package/@react-navigation/stack) - To handle navigation
+- [axios](https://www.npmjs.com/package/axios) - For making Api calls
+- [Css](https://developer.mozilla.org/en-US/docs/Web/CSS) - For User Interface
+- [Rich Pell Editor](https://www.npmjs.com/package/react-native-pell-rich-editorl) - Document Text Editor 
+- [React Native Flash Message](https://www.npmjs.com/package/react-native-flash-message) - For displaying flash messages
+- [React native vector icons](https://www.npmjs.com/package/react-native-vector-icons/v/10.0.3) - Small library that helps you add icons  to your react apps.
+
 
 
 ## Configuration and Setup
-
-
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
@@ -44,9 +69,6 @@ In order to run this project locally, simply fork and clone the repository or do
 # using npm
 
 npm start
-
-
-
 ```
 
 
@@ -62,18 +84,11 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 
-
 ```bash
 
 # using npm
 
 npm run android
-
-
-
-# OR using Yarn
-
-yarn android
 
 ```
 
@@ -88,13 +103,6 @@ yarn android
 # using npm
 
 npm run ios
-
-
-
-# OR using Yarn
-
-yarn ios
-
 ```
 
 
@@ -107,22 +115,6 @@ This is one way to run your app — you can also run it directly from within And
 
 
 
-## Step 3: Modifying your App
-
-
-
-Now that you have successfully run the app, let's modify it.
-
-
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
 
 
 ## Congratulations! :tada:
@@ -133,38 +125,20 @@ You've successfully run and modified your React Native App. :partying_face:
 
 
 
-### Now what?
-
-
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-
-
 # Troubleshooting
-
-
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
+## Other Details
 
+For the project to be deployed on render, package.json has been added to the root directory. You may view the website from the first section.
+  
 
-# Learn More
+## Author
+- Github: [kawanchaudhary](https://github.com/KawanChaudhary)
+- Linkedin: [kawanchaudhary](https://www.linkedin.com/in/kawanchaudhary/)
+- Email: [kawanchaudhary@gmail.com](mailto:kawanchaudhary@gmail.com)
 
+## License
 
-
-To learn more about React Native, take a look at the following resources:
-
-
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the MIT License.
