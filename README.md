@@ -46,7 +46,7 @@ This project was created using the following technologies.
 - [Rich Pell Editor](https://www.npmjs.com/package/react-native-pell-rich-editorl) - Document Text Editor 
 - [React Native Flash Message](https://www.npmjs.com/package/react-native-flash-message) - For displaying flash messages
 - [React native vector icons](https://www.npmjs.com/package/react-native-vector-icons/v/10.0.3) - Small library that helps you add icons  to your react apps.
-- [React Native Reanimated](https://www.npmjs.com/package/react-native-reanimated) - It provides a more comprehensive, low level abstraction for the Animated library API.API.
+- [React Native Reanimated](https://www.npmjs.com/package/react-native-reanimated) - It provides a more comprehensive, low level abstraction for the Animated library API.
 - [React Native Gesture Handler](https://www.npmjs.com/package/react-native-gesture-handler) - It provides a more comprehensive, low level abstraction for the Animated library API.
 
 
