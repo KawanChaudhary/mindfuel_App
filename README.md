@@ -1,25 +1,42 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<h1 align="center">MIND FUEL Mobile App</h1>
+
+<h4><span style="color: red;">Fullstack open source mobile blogging application made with Firebase, MongoDB, Express, React Native & Node.js</span></h4>
+<br/>
+
+<h4>Content</h4>
+  - * [Live website link](#live-website-link)
+  - * [Configuration and Setup](#configuration-and-setup)
+  - * [Key Features](#key-features)
+  - * [Technologies used](#technologies-used)
+      - [Frontend](#frontend)
+      - [Backend](#backend)
+      - [Database](#database)
+  - * [Author](#author)
+  - * [Other Details](#other-details)
+  - * [License](#license)
+
+## Live website link
+
+<h4>Check the live website : <a href="https://mindfuel-web-fe.onrender.com/" target="_blank"> Click here </a> 🚀</h4>
+
+<h5>If you enjoy the content, please register and contribute a well-written story.</h5>
 
 
 
-# Getting Started
+## Configuration and Setup
 
 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
+<h4>To setup backend : <a href="https://github.com/KawanChaudhary/mindfuel_web" target="_blank"> Click here </a> 🚀</h4>
 
 
-## Step 1: Start the Metro Server
+In order to run this project locally, simply fork and clone the repository or download as zip and unzip on your machine.
 
-
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
+- Open the project in your prefered code editor.
+- Go to terminal -> New terminal (If you are using VS code)
+- To start Metro, run the following command from the _root_ of your React Native project:
 
 
 ```bash
@@ -29,10 +46,6 @@ To start Metro, run the following command from the _root_ of your React Native p
 npm start
 
 
-
-# OR using Yarn
-
-yarn start
 
 ```
 
