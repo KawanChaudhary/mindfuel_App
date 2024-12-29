@@ -3,7 +3,7 @@
 <h4><span style="color: red;">Fullstack open source mobile blogging application made with Firebase, MongoDB, Express, React Native & Node.js</span></h4>
 <br/>
 
-<h4>Content</h4>
+## Content
   - [Live website link]
   - [Key Features]
   - [Technologies used]
