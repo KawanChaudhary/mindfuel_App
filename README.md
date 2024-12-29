@@ -4,12 +4,12 @@
 <br/>
 
 ## Content
-  - [Live website link]
-  - [Key Features]
-  - [Technologies used]
-  - [Configuration and Setup]
-  - [Author]
-  - [License]
+  - Live website link
+  - Key Features
+  - Technologies used
+  - Configuration and Setup
+  - Author
+  - License
 
 ## Live website link
 
