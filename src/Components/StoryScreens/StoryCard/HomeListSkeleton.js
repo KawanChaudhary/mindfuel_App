@@ -57,7 +57,7 @@ const HomeListSkeleton = ({loading, story, theme, showShare = true}) => {
               radius={0}
               colorMode={colormode}
               key={story.title}>
-              {loading ? null : (
+              {loading || !story?.image ? null : (
                 <Text style={[styles.title, {color: theme.colors.text}]}>
                   {truncateTitle(story.title)}
                 </Text>
@@ -78,7 +78,7 @@ const HomeListSkeleton = ({loading, story, theme, showShare = true}) => {
             radius={0}
             key={story.image}
             colorMode={colormode}>
-            {loading ? null : (
+            {loading || !story?.image ? null : (
               <Image source={{uri: story.image}} style={styles.storyImage} />
             )}
           </Skeleton>
@@ -92,7 +92,7 @@ const HomeListSkeleton = ({loading, story, theme, showShare = true}) => {
           radius={0}
           key={story.image}
           colorMode={colormode}>
-          {loading ? null : (
+          {loading || !story?.image ? null : (
             <View style={styles.otherDetails}>
               <Text style={[styles.detailsText, {}]}>
                 {story.readtime} min read • {editDate(story.createdAt)}
