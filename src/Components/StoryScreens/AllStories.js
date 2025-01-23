@@ -22,9 +22,11 @@ const AllStory = () => {
     shallowEqual,
   );
 
-  useFocusEffect(() => {
-    dispatch(fetchStoriesRequest(1));
-  }, [dispatch]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchStoriesRequest(1));
+    }, [dispatch]),
+  );
 
   useEffect(() => {
     setAllStories(loading && page === 1 ? intialStory : stories);
