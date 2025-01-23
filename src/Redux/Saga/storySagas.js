@@ -1,10 +1,10 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import axiosInstance from '../../axiosInstance';
 import {
-  fetchStoriesRequest,
   fetchStoriesSuccess,
   fetchStoriesFailure,
 } from '../Actions/storyActions';
+import {FETCH_STORIES_REQUEST} from '../Actions/actionsTypes';
 
 function* fetchStoriesSaga(action) {
   const {page = 1, searchKey = ''} = action.payload || {};
@@ -22,5 +22,5 @@ function* fetchStoriesSaga(action) {
 }
 
 export default function* storySagas() {
-  yield takeLatest(fetchStoriesRequest, fetchStoriesSaga);
+  yield takeLatest(FETCH_STORIES_REQUEST, fetchStoriesSaga);
 }

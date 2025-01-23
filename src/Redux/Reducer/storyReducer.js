@@ -11,6 +11,7 @@ const initialState = {
   error: null,
   page: 1,
   hasMore: true,
+  refreshing: false,
 };
 
 const storyReducer = (state = initialState, action) => {
@@ -20,21 +21,25 @@ const storyReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: null,
+        page: action.payload.page,
+        refreshing: false,
       };
     case FETCH_STORIES_SUCCESS:
       return {
         ...state,
         stories:
-          action.payload.page === 1
+          state.page === 1
             ? action.payload.stories
             : [...state.stories, ...action.payload.stories],
         hasMore: action.payload.hasMore,
         loading: false,
+        refreshing: false,
       };
     case FETCH_STORIES_FAILURE:
       return {
         ...state,
-        loading: true,
+        loading: false,
+        refreshing: false,
         error: action.payload,
       };
     case RESET_STORIES:

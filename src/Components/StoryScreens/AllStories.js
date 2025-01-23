@@ -1,9 +1,7 @@
-import React, {useContext, useEffect, useCallback, useState} from 'react';
+import React, {useContext, useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList, RefreshControl, Text} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  fetchStoriesRequest
-} from '../../Redux/Actions/storyActions';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {fetchStoriesRequest} from '../../Redux/Actions/storyActions';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
 import {intialStory} from '../../Data/default';
@@ -13,15 +11,23 @@ const AllStory = () => {
   const dispatch = useDispatch();
   const [allStories, setAllStories] = useState(intialStory);
   const {stories, loading, hasMore, page, refreshing} = useSelector(
-    state => state.story,
+    state => ({
+      stories: state.story.stories,
+      loading: state.story.loading,
+      hasMore: state.story.hasMore,
+      page: state.story.page,
+      refreshing: state.story.refreshing,
+    }),
+    shallowEqual,
   );
 
-  console.log('data', stories[0], loading, hasMore, page, refreshing);
+  useEffect(() => {
+    dispatch(fetchStoriesRequest(1));
+  }, [dispatch]);
 
   useEffect(() => {
-    console.log('refetch');
-    dispatch(fetchStoriesRequest(1));
-  }, []);
+    setAllStories(loading && page === 1 ? intialStory : stories);
+  }, [stories, loading, page]);
 
   const loadMoreStories = () => {
     if (hasMore && !loading) {
@@ -34,7 +40,11 @@ const AllStory = () => {
   };
 
   const renderStory = ({item}) => (
-    <HomeListSkeleton loading={loading} story={item} theme={theme} />
+    <HomeListSkeleton
+      loading={loading && page === 1}
+      story={item}
+      theme={theme}
+    />
   );
 
   const getItemLayout = useCallback(
@@ -49,7 +59,7 @@ const AllStory = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={stories || intialStory}
+        data={allStories}
         renderItem={renderStory}
         keyExtractor={item => item._id}
         onEndReached={loadMoreStories}
