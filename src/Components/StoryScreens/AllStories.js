@@ -5,6 +5,7 @@ import {fetchStoriesRequest} from '../../Redux/Actions/storyActions';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
 import {intialStory} from '../../Data/default';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AllStory = () => {
   const {theme} = useContext(ThemeContext);
@@ -21,7 +22,7 @@ const AllStory = () => {
     shallowEqual,
   );
 
-  useEffect(() => {
+  useFocusEffect(() => {
     dispatch(fetchStoriesRequest(1));
   }, [dispatch]);
 
