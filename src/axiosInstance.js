@@ -1,9 +1,9 @@
 
 import axios from 'axios';
 
-// const baseUrl = 'https://mindfuel-web.onrender.com';
+const baseUrl = 'https://mindfuel-web-1.onrender.com';
 
-const baseUrl = 'http://10.0.2.2:5000';
+// const baseUrl = 'http://10.0.2.2:5000';
 
 const instance = axios.create({
   baseURL: `${baseUrl}`,
