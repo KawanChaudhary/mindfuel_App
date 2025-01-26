@@ -3,6 +3,7 @@ import {
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
   RESET_STORIES,
+  DELTE_STORY_BY_ID,
 } from './actionsTypes';
 
 export const fetchStoriesRequest = (page = 1, searchKey = '') => ({
@@ -22,4 +23,9 @@ export const fetchStoriesFailure = error => ({
 
 export const resetStories = () => ({
   type: RESET_STORIES,
+});
+
+export const deleteStoryById = (story, config) => ({
+  type: DELTE_STORY_BY_ID,
+  payload: {story, config},
 });

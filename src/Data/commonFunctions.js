@@ -18,6 +18,9 @@ export function formatDateRelativeToNow(date) {
   } else if (elapsedMilliseconds < 24 * 60 * 60 * 1000) {
     const hours = Math.floor(elapsedMilliseconds / (60 * 60 * 1000));
     return `${hours}h`;
+  } else if (elapsedMilliseconds < 7 * 24 * 60 * 60 * 1000) {
+    const days = Math.floor(elapsedMilliseconds / (24 * 60 * 60 * 1000));
+    return `${days}d`;
   } else {
     const weeks = Math.floor(elapsedMilliseconds / (7 * 24 * 60 * 60 * 1000));
     return `${weeks}w`;

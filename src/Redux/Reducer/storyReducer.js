@@ -3,6 +3,7 @@ import {
   FETCH_STORIES_SUCCESS,
   FETCH_STORIES_FAILURE,
   RESET_STORIES,
+  DELTE_STORY_BY_ID,
 } from '../Actions/actionsTypes';
 
 const initialState = {
@@ -44,6 +45,13 @@ const storyReducer = (state = initialState, action) => {
       };
     case RESET_STORIES:
       return initialState;
+    case DELTE_STORY_BY_ID:
+      return {
+        ...state,
+        stories: state.stories.filter(
+          story => story._id !== action.payload.story._id,
+        ),
+      };
     default:
       return state;
   }

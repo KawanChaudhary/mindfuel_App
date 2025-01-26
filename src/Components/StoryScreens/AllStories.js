@@ -1,11 +1,10 @@
-import React, {useContext, useCallback, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList, RefreshControl, Text} from 'react-native';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {fetchStoriesRequest} from '../../Redux/Actions/storyActions';
 import HomeListSkeleton from './StoryCard/HomeListSkeleton';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
 import {intialStory} from '../../Data/default';
-import {useFocusEffect} from '@react-navigation/native';
 
 const AllStory = () => {
   const {theme} = useContext(ThemeContext);
@@ -22,11 +21,9 @@ const AllStory = () => {
     shallowEqual,
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(fetchStoriesRequest(1));
-    }, [dispatch]),
-  );
+  useEffect(() => {
+    dispatch(fetchStoriesRequest(1));
+  }, [dispatch]);
 
   useEffect(() => {
     setAllStories(loading && page === 1 ? intialStory : stories);
@@ -50,14 +47,11 @@ const AllStory = () => {
     />
   );
 
-  const getItemLayout = useCallback(
-    (_, index) => ({
-      length: 120,
-      offset: 120 * index,
-      index,
-    }),
-    [],
-  );
+  const getItemLayout = (_, index) => ({
+    length: 120,
+    offset: 120 * index,
+    index,
+  });
 
   return (
     <View style={styles.container}>

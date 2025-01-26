@@ -1,7 +1,14 @@
-import {Keyboard, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Keyboard,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import axiosInstance from '../../../axiosInstance';
-import {FlatList} from 'react-native-gesture-handler';
 import CommentSkeleton from './CommentSkeleton';
 import AddComment from './AddComment';
 import {showMessage} from 'react-native-flash-message';
@@ -87,10 +94,9 @@ const CommentPopUp = ({
       transparent
       animationType="slide"
       visible={visible}
-      onRequestClose={closeModal}
-      style={styles.modalContainer}>
-      <Pressable onPress={closeModal} style={styles.container}>
-        <View
+      onRequestClose={closeModal}>
+      <Pressable style={styles.container} onPress={closeModal}>
+        <Pressable
           style={[
             styles.modalBody,
             {
@@ -99,7 +105,8 @@ const CommentPopUp = ({
                   ? theme.colors.background
                   : theme.colors.backgroundLight,
             },
-          ]}>
+          ]}
+          onPress={() => {}}>
           <View style={styles.topBar} />
           <View style={styles.comments}>
             <Text style={[styles.commentsText, {color: theme.colors.text}]}>
@@ -111,6 +118,7 @@ const CommentPopUp = ({
               data={commentlist}
               renderItem={renderComment}
               keyExtractor={item => item._id}
+              contentContainerStyle={styles.commentList}
             />
           ) : (
             <View style={styles.noComments}>
@@ -123,10 +131,10 @@ const CommentPopUp = ({
               </Text>
             </View>
           )}
-        </View>
-        {auth && (
-          <AddComment handleSubmit={handleSubmitComment} theme={theme} />
-        )}
+          {auth && (
+            <AddComment handleSubmit={handleSubmitComment} theme={theme} />
+          )}
+        </Pressable>
       </Pressable>
     </Modal>
   );
@@ -146,14 +154,12 @@ const styles = StyleSheet.create({
   },
   modalBody: {
     paddingTop: 10,
-    paddingBottom: 20,
     width: '100%',
     alignItems: 'center',
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
-    minHeight: 300,
+    minHeight: 400,
     height: 200,
-    maxHeight: 600,
   },
   topBar: {
     width: 60,
@@ -168,6 +174,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 0.2,
     borderColor: 'grey',
+  },
+  commentList: {
+    paddingBottom: 20,
   },
   commentsText: {
     fontSize: 18,

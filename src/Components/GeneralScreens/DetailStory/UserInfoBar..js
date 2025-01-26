@@ -8,9 +8,10 @@ import {
   Alert,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import axios from '../../../axiosInstance';
 import {showMessage} from 'react-native-flash-message';
 import {defaultImageFunc} from '../../../Data/commonFunctions';
+import {useDispatch} from 'react-redux';
+import {deleteStoryById} from '../../../Redux/Actions/storyActions';
 
 const UserInfoBar = ({
   theme,
@@ -20,6 +21,8 @@ const UserInfoBar = ({
   navigation,
   openEditStoryModal,
 }) => {
+  const dispatch = useDispatch();
+
   const handleDelete = async () => {
     const config = await setUserConfig();
     Alert.alert(
@@ -34,7 +37,7 @@ const UserInfoBar = ({
           text: 'Delete',
           onPress: async () => {
             try {
-              await axios.delete(`/story/${story.slug}/delete`, config);
+              dispatch(deleteStoryById(story, config));
               showMessage({
                 message: 'Story deleted successfully',
                 type: 'success',

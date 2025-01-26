@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import CustomizeStatusBar from '../../Components/GeneralScreens/CustomizeStatusBar';
 import {View} from 'moti';
 import {
@@ -9,7 +9,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {ThemeContext} from '../../Contexts/ThemeProvider';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axiosInstance from '../../axiosInstance';
 import UserInfoBar from '../../Components/GeneralScreens/DetailStory/UserInfoBar.';
 
@@ -66,11 +66,9 @@ const DetailStoryScreen = ({route}) => {
     }
   }, [storySlug, setLoading, activeUser]);
 
-  useFocusEffect(
-    useCallback(() => {
-      getDetailStory();
-    }, [getDetailStory]),
-  );
+  useEffect(() => {
+    getDetailStory();
+  }, [getDetailStory]);
 
   const contentStyle = {
     h1: {
@@ -125,8 +123,8 @@ const DetailStoryScreen = ({route}) => {
         navigation.navigate('ProfileNavigator');
       }, 2000);
     } else {
-      setLikeStatus(!likeStatus);
-      setLikeCount(likeStatus ? likeCount - 1 : likeCount + 1);
+      setLikeStatus(prevLikeStatus => !prevLikeStatus);
+      setLikeCount(prevLikes => (likeStatus ? prevLikes - 1 : prevLikes + 1));
       const config = await setUserConfig();
       try {
         const {data} = await axiosInstance.post(
@@ -159,6 +157,7 @@ const DetailStoryScreen = ({route}) => {
         navigation.navigate('ProfileNavigator');
       }, 2000);
     } else {
+      setStoryReadListStatus(prevReadListStatus => !prevReadListStatus);
       try {
         const config = await setUserConfig();
         const {data} = await axiosInstance.post(
@@ -166,6 +165,7 @@ const DetailStoryScreen = ({route}) => {
           {activeUser},
           config,
         );
+        console.log('data', data.user);
         setStoryReadListStatus(data.status);
       } catch (error) {
         showMessage({
@@ -189,12 +189,12 @@ const DetailStoryScreen = ({route}) => {
         {backgroundColor: theme.colors.backgroundLight},
       ]}>
       <CustomizeStatusBar />
-        <HeaderWithIcon
-          title="Story"
-          showBackButton={true}
-          handleIconPress={() => shareContent(story)}
-          iconName={'share-outline'}
-        />
+      <HeaderWithIcon
+        title="Story"
+        showBackButton={true}
+        handleIconPress={() => shareContent(story)}
+        iconName={'share-outline'}
+      />
       <Loader loading={loading} showChildren={!loading}>
         <ScrollView>
           <UserInfoBar
@@ -220,7 +220,10 @@ const DetailStoryScreen = ({route}) => {
             <Text style={[styles.titleText, {color: theme.colors.text}]}>
               {story.title}
             </Text>
-            <Image source={{uri: defaultImageFunc(story.image)}} style={styles.image} />
+            <Image
+              source={{uri: defaultImageFunc(story.image)}}
+              style={styles.image}
+            />
             <RenderHTML
               contentWidth={width}
               source={{html: story.content || '<p>No content available</p>'}}
