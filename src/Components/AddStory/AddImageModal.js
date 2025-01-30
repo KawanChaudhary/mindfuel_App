@@ -1,12 +1,29 @@
-import { Alert, Dimensions, Image, Modal, PermissionsAndroid, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  Modal,
+  PermissionsAndroid,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const AddImageModal = ({ visible, handleClose, theme, storyImage, setStoryImage, submitHandle }) => {
-
+const AddImageModal = ({
+  visible,
+  handleClose,
+  theme,
+  storyImage,
+  setStoryImage,
+  submitHandle,
+}) => {
   const closeModal = () => handleClose(false);
 
   const options = {
@@ -28,7 +45,7 @@ const AddImageModal = ({ visible, handleClose, theme, storyImage, setStoryImage,
           onPress: () => launchGallery(),
         },
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
   };
 
@@ -42,7 +59,7 @@ const AddImageModal = ({ visible, handleClose, theme, storyImage, setStoryImage,
           buttonNeutral: 'Ask Me Later',
           buttonNegative: 'Cancel',
           buttonPositive: 'OK',
-        }
+        },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         return true;
@@ -74,6 +91,8 @@ const AddImageModal = ({ visible, handleClose, theme, storyImage, setStoryImage,
     }
   };
 
+  const buttonDisabled = !storyImage;
+
   return (
     <Modal
       transparent
@@ -82,31 +101,42 @@ const AddImageModal = ({ visible, handleClose, theme, storyImage, setStoryImage,
       onRequestClose={closeModal}
       style={styles.modalContainer}>
       <Pressable onPress={closeModal} style={styles.container}>
-
-        <View style={[styles.modalBody, { backgroundColor: theme.name === 'light' ? theme.colors.background : theme.colors.backgroundLight }]}>
-
-          <TouchableOpacity style={[styles.imageContainer, {borderColor:theme.colors.text}]} onPress={selectImage}>
-
+        <View
+          style={[
+            styles.modalBody,
             {
-              storyImage ?
-                <Image source={{ uri: storyImage }} style={styles.image} />
-                :
-                <View style={styles.notImage}>
+              backgroundColor:
+                theme.name === 'light'
+                  ? theme.colors.background
+                  : theme.colors.backgroundLight,
+            },
+          ]}>
+          <TouchableOpacity
+            style={[styles.imageContainer, {borderColor: theme.colors.text}]}
+            onPress={selectImage}>
+            {storyImage ? (
+              <Image source={{uri: storyImage}} style={styles.image} />
+            ) : (
+              <View style={styles.notImage}>
+                <Feather name="upload" color={theme.colors.text} size={25} />
 
-                  <Feather name="upload" color={theme.colors.text} size={25} />
-
-                  <Text style={[styles.imageText, {color:theme.colors.text}]}>
-                    Include a high-quality image in your story to make it more inviting to readers.
-                    </Text>
-                </View>
-            }
-
+                <Text style={[styles.imageText, {color: theme.colors.text}]}>
+                  Include a high-quality image in your story to make it more
+                  inviting to readers.
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.publishButton, {backgroundColor:theme.colors.secondary}]} onPress={submitHandle}>
+          <TouchableOpacity
+            disabled={buttonDisabled}
+            style={[
+              styles.publishButton,
+              {backgroundColor: buttonDisabled ? theme.colors.grey : theme.colors.secondary},
+            ]}
+            onPress={submitHandle}>
             <Text style={[styles.publishText]}>Publish</Text>
           </TouchableOpacity>
-
         </View>
       </Pressable>
     </Modal>
@@ -127,17 +157,17 @@ const styles = StyleSheet.create({
   },
   modalBody: {
     alignItems: 'center',
-    justifyContent:'space-evenly',
-    borderTopWidth:0.5,
-    borderEndWidth:0.5,
-    borderStartWidth:0.5,
+    justifyContent: 'space-evenly',
+    borderTopWidth: 0.5,
+    borderEndWidth: 0.5,
+    borderStartWidth: 0.5,
     width: '100%',
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
     minHeight: 300,
     height: 200,
     maxHeight: 600,
-    gap:20,
+    gap: 20,
   },
   imageContainer: {
     justifyContent: 'center',
@@ -147,9 +177,9 @@ const styles = StyleSheet.create({
     maxHeight: height * 0.2,
     maxWidth: width * 0.8,
     borderWidth: 0.5,
-    borderRadius:10,
+    borderRadius: 10,
   },
-  image :{
+  image: {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: height * 0.2,
@@ -157,31 +187,31 @@ const styles = StyleSheet.create({
     maxHeight: height * 0.2,
     maxWidth: width * 0.8,
     resizeMode: 'cover',
-    borderRadius:10,
+    borderRadius: 10,
   },
-  notImage:{
-    alignItems:'center',
-    justifyContent:'center',
-    padding:10,
-    gap:15,
+  notImage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    gap: 15,
   },
-  imageText:{
+  imageText: {
     fontSize: 14,
-    textAlign:'center',
-    fontFamily:'Comfortaa Regular',
-    lineHeight:20,
+    textAlign: 'center',
+    fontFamily: 'Comfortaa Regular',
+    lineHeight: 20,
   },
-  publishButton:{
-    justifyContent:'center',
-    alignItems:'center',
-    padding:12,
-    width:'90%',
+  publishButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 12,
+    width: '90%',
     maxWidth: width * 0.8,
-    borderRadius:10,
+    borderRadius: 10,
   },
-  publishText:{
-    color:'white',
-    fontSize:16,
-    fontFamily:'Comfortaa Bold',
+  publishText: {
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'Comfortaa Bold',
   },
 });

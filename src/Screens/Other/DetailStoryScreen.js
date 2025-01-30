@@ -54,8 +54,7 @@ const DetailStoryScreen = ({route}) => {
       setLikeStatus(data.likeStatus);
       setLikeCount(data.data.likeCount);
       setCommentCount(data.data.commentCount);
-      const story_id = data.data._id;
-      setStoryReadListStatus(activeUser.readList?.includes(story_id));
+      setStoryReadListStatus(data.data.readList.includes(activeUser._id));
       setLoading(false);
     } catch (error) {
       setStory({});
@@ -165,7 +164,6 @@ const DetailStoryScreen = ({route}) => {
           {activeUser},
           config,
         );
-        console.log('data', data.user);
         setStoryReadListStatus(data.status);
       } catch (error) {
         showMessage({

@@ -112,10 +112,17 @@ const EditProfileScreen = () => {
   };
 
   const launchCameraFromApp = async () => {
-    if (
-      PermissionsAndroid.RESULTS.GRANTED ||
-      (await requestCameraPermission())
-    ) {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      {
+        title: 'App Camera Permission',
+        message: 'App needs access to your camera ',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       await launchCamera(options, response => {
         handleImageResponse(response);
       });
@@ -161,8 +168,7 @@ const EditProfileScreen = () => {
         message: err.response.data.error,
         type: 'danger',
       });
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };

@@ -20,11 +20,14 @@ import {AuthContext} from '../../Contexts/AuthContext';
 
 import {axiosFormInstance} from '../../axiosInstance';
 import {showMessage} from 'react-native-flash-message';
+import {useDispatch} from 'react-redux';
+import {fetchStoriesRequest} from '../../Redux/Actions/storyActions';
 
 const AddStoryModal = ({visible, closeModal}) => {
   const handleClose = () => closeModal(false);
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const {theme} = useContext(ThemeContext);
   const {setUserConfig} = useContext(AuthContext);
@@ -103,6 +106,7 @@ const AddStoryModal = ({visible, closeModal}) => {
   };
 
   const submitHandle = async () => {
+    if(!storyImage) {return;}
     const formdata = new FormData();
     formdata.append('title', title);
     formdata.append('content', content);
@@ -111,8 +115,6 @@ const AddStoryModal = ({visible, closeModal}) => {
       type: 'image/jpeg',
       name: 'storyImage',
     });
-
-    // console.log(formdata);
 
     try {
       const config = await setUserConfig();
@@ -123,11 +125,12 @@ const AddStoryModal = ({visible, closeModal}) => {
         message: 'Your story is live.',
         type: 'success',
       });
+      clearInputs();
       handleClose();
+      dispatch(fetchStoriesRequest(1));
       setTimeout(() => {
         navigation.navigate('HomeNavigator');
       }, 10000);
-      clearInputs();
     } catch (error) {
       showMessage({
         message: error.response.data,
