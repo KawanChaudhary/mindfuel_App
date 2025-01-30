@@ -1,12 +1,8 @@
-
 import axios from 'axios';
-
-// const baseUrl = 'https://mindfuel-web.onrender.com';
-
-const baseUrl = 'http://10.0.2.2:5000';
+import {API_BASE_URL} from '@env';
 
 const instance = axios.create({
-  baseURL: `${baseUrl}`,
+  baseURL: `${API_BASE_URL}`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,7 +11,7 @@ const instance = axios.create({
 export default instance;
 
 export const axiosFormInstance = axios.create({
-  baseURL: `${baseUrl}`,
+  baseURL: `${API_BASE_URL}`,
   headers: {
     'Content-Type': 'multipart/form-data',
   },

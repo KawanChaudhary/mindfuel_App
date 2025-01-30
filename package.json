@@ -25,6 +25,7 @@
     "moti": "^0.28.1",
     "react": "18.2.0",
     "react-native": "0.73.0",
+    "react-native-dotenv": "^3.4.11",
     "react-native-elements": "^3.4.3",
     "react-native-flash-message": "^0.4.2",
     "react-native-fs": "^2.20.0",
