@@ -33,6 +33,24 @@
 - Global state management with redux and implemented redux-saga
 - Theme switching using Context API
 
+### Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="./screenshots/IMG_4712 2.png" alt="Screenshot 1" width="200"/><br/><b>Screenshot 1</b></td>
+    <td align="center"><img src="./screenshots/IMG_4713 2.png" alt="Screenshot 2" width="200"/><br/><b>Screenshot 2</b></td>
+    <td align="center"><img src="./screenshots/IMG_4714 2.png" alt="Screenshot 3" width="200"/><br/><b>Screenshot 3</b></td>
+    <td align="center"><img src="./screenshots/IMG_4715 2.png" alt="Screenshot 4" width="200"/><br/><b>Screenshot 4</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./screenshots/IMG_4716 2.png" alt="Screenshot 5" width="200"/><br/><b>Screenshot 5</b></td>
+    <td align="center"><img src="./screenshots/IMG_4717 2.png" alt="Screenshot 6" width="200"/><br/><b>Screenshot 6</b></td>
+    <td align="center"><img src="./screenshots/IMG_4718 2.png" alt="Screenshot 7" width="200"/><br/><b>Screenshot 7</b></td>
+    <td align="center"><img src="./screenshots/IMG_4719 2.png" alt="Screenshot 8" width="200"/><br/><b>Screenshot 8</b></td>
+    <td align="center"><img src="./screenshots/IMG_4711 2.png" alt="Screenshot 8" width="200"/><br/><b>Screenshot 9</b></td>
+  </tr>
+</table>
+
 ##  Technologies used
 
 This project was created using the following technologies.
