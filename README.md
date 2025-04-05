@@ -35,15 +35,6 @@
 - Global state management with redux and implemented redux-saga
 - Theme switching using Context API
 
-### Screenshots
-
-<table>
-  <tr>
-    <td align="center"><img src="./screenshots/IMG_4712 2.png" alt="Screenshot 1" width="200"/><br/><b>Screenshot 1</b></td>
-    <td align="center"><img src="./screenshots/IMG_4713 2.png" alt="Screenshot 2" width="200"/><br/><b>Screenshot 2</b></td>
-  </tr>
-</table>
-
 ##  Technologies used
 
 This project was created using the following technologies.
