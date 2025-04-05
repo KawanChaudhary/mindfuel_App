@@ -11,11 +11,13 @@
   - Author
   - License
 
-## Live website link
+## App Live link
 
 <h4>Check the live website : <a href="https://mindfuel-web-fe.onrender.com/" target="_blank"> Click here </a> 🚀</h4>
 
 <h5>If you enjoy the content, please register and contribute a well-written story.</h5>
+
+<h5>🎥 Experience it now! <a href="https://drive.google.com/drive/folders/1uwiQVI3L8ioike5vbp3t5SeF0pn9n5Ru?usp=drive_link" target="_blank">Download the android app or watch the demo video here</a> 📲</h5>
 
 ##  Key Features
 
@@ -47,7 +49,16 @@
     <td align="center"><img src="./screenshots/IMG_4717 2.png" alt="Screenshot 6" width="200"/><br/><b>Screenshot 6</b></td>
     <td align="center"><img src="./screenshots/IMG_4718 2.png" alt="Screenshot 7" width="200"/><br/><b>Screenshot 7</b></td>
     <td align="center"><img src="./screenshots/IMG_4719 2.png" alt="Screenshot 8" width="200"/><br/><b>Screenshot 8</b></td>
-    <td align="center"><img src="./screenshots/IMG_4711 2.png" alt="Screenshot 8" width="200"/><br/><b>Screenshot 9</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./screenshots/IMG_4720 2.png" alt="Screenshot 9" width="200"/><br/><b>Screenshot 9</b></td>
+    <td align="center"><img src="./screenshots/IMG_4721 2.png" alt="Screenshot 10" width="200"/><br/><b>Screenshot 10</b></td>
+    <td align="center"><img src="./screenshots/IMG_4722 2.png" alt="Screenshot 11" width="200"/><br/><b>Screenshot 11</b></td>
+    <td align="center"><img src="./screenshots/IMG_4723 2.png" alt="Screenshot 12" width="200"/><br/><b>Screenshot 12</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./screenshots/IMG_4724 2.png" alt="Screenshot 13" width="200"/><br/><b>Screenshot 13</b></td>
+    <td align="center"><img src="./screenshots/IMG_4711 2.png" alt="Screenshot 14" width="200"/><br/><b>Screenshot 14</b></td>
   </tr>
 </table>
 
