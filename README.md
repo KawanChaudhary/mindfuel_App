@@ -46,7 +46,7 @@
   </tr>
   <tr>
     <td align="center"><img src="./screenshots/IMG_4716 2.PNG" alt="Screenshot 5" width="200"/><br/><b>Screenshot 5</b></td>
-    <td align="center"><img src="./screenshots/IMG_4717 2.PNG" alt="Screenshot 6" width="200"/><br/><b>Screenshot 6</b></td>
+    <td align="center"><img src="./screenshots/IMG_4727.PNG" alt="Screenshot 6" width="200"/><br/><b>Screenshot 6</b></td>
     <td align="center"><img src="./screenshots/IMG_4718 2.PNG" alt="Screenshot 7" width="200"/><br/><b>Screenshot 7</b></td>
     <td align="center"><img src="./screenshots/IMG_4719 2.PNG" alt="Screenshot 8" width="200"/><br/><b>Screenshot 8</b></td>
   </tr>
