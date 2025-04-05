@@ -39,26 +39,26 @@
 
 <table>
   <tr>
-    <td align="center"><img src="./screenshots/IMG_4712 2.PNG" alt="Screenshot 1" width="200"/><br/><b>Screenshot 1</b></td>
-    <td align="center"><img src="./screenshots/IMG_4713 2.PNG" alt="Screenshot 2" width="200"/><br/><b>Screenshot 2</b></td>
-    <td align="center"><img src="./screenshots/IMG_4714 2.PNG" alt="Screenshot 3" width="200"/><br/><b>Screenshot 3</b></td>
-    <td align="center"><img src="./screenshots/IMG_4715 2.PNG" alt="Screenshot 4" width="200"/><br/><b>Screenshot 4</b></td>
+    <td align="center"><img src="./screenshots/IMG_4712 2.PNG" alt="Screenshot 1" width="200"/><br/>Home Screen</td>
+    <td align="center"><img src="./screenshots/IMG_4713 2.PNG" alt="Screenshot 2" width="200"/><br/>Skeleton Loader</td>
+    <td align="center"><img src="./screenshots/IMG_4714 2.PNG" alt="Screenshot 3" width="200"/><br/>Story Details Screen</td>
+    <td align="center"><img src="./screenshots/IMG_4715 2.PNG" alt="Screenshot 4" width="200"/><br/>Comment Modal</td>
   </tr>
   <tr>
-    <td align="center"><img src="./screenshots/IMG_4716 2.PNG" alt="Screenshot 5" width="200"/><br/><b>Screenshot 5</b></td>
-    <td align="center"><img src="./screenshots/IMG_4727.PNG" alt="Screenshot 6" width="200"/><br/><b>Screenshot 6</b></td>
-    <td align="center"><img src="./screenshots/IMG_4718 2.PNG" alt="Screenshot 7" width="200"/><br/><b>Screenshot 7</b></td>
-    <td align="center"><img src="./screenshots/IMG_4719 2.PNG" alt="Screenshot 8" width="200"/><br/><b>Screenshot 8</b></td>
+    <td align="center"><img src="./screenshots/IMG_4716 2.PNG" alt="Screenshot 5" width="200"/><br/>Register Screen</td>
+    <td align="center"><img src="./screenshots/IMG_4727.PNG" alt="Screenshot 6" width="200"/><br/>Add Comment</td>
+    <td align="center"><img src="./screenshots/IMG_4718 2.PNG" alt="Screenshot 7" width="200"/><br/>Bookmarks</td>
+    <td align="center"><img src="./screenshots/IMG_4719 2.PNG" alt="Screenshot 8" width="200"/><br/>Profile Screen</td>
   </tr>
   <tr>
-    <td align="center"><img src="./screenshots/IMG_4720 2.PNG" alt="Screenshot 9" width="200"/><br/><b>Screenshot 9</b></td>
-    <td align="center"><img src="./screenshots/IMG_4721 2.PNG" alt="Screenshot 10" width="200"/><br/><b>Screenshot 10</b></td>
-    <td align="center"><img src="./screenshots/IMG_4722 2.PNG" alt="Screenshot 11" width="200"/><br/><b>Screenshot 11</b></td>
-    <td align="center"><img src="./screenshots/IMG_4723 2.PNG" alt="Screenshot 12" width="200"/><br/><b>Screenshot 12</b></td>
+    <td align="center"><img src="./screenshots/IMG_4720 2.PNG" alt="Screenshot 9" width="200"/><br/>Edit Profile</td>
+    <td align="center"><img src="./screenshots/IMG_4721 2.PNG" alt="Screenshot 10" width="200"/><br/>Setting Screen</td>
+    <td align="center"><img src="./screenshots/IMG_4722 2.PNG" alt="Screenshot 11" width="200"/><br/>Add Story Modal</td>
+    <td align="center"><img src="./screenshots/IMG_4723 2.PNG" alt="Screenshot 12" width="200"/><br/>Add Story Screen with Text Editor</td>
   </tr>
   <tr>
-    <td align="center"><img src="./screenshots/IMG_4724 2.PNG" alt="Screenshot 13" width="200"/><br/><b>Screenshot 13</b></td>
-    <td align="center"><img src="./screenshots/IMG_4711 2.PNG" alt="Screenshot 14" width="200"/><br/><b>Screenshot 14</b></td>
+    <td align="center"><img src="./screenshots/IMG_4724 2.PNG" alt="Screenshot 13" width="200"/><br/>Share Story</td>
+    <td align="center"><img src="./screenshots/IMG_4711 2.PNG" alt="Screenshot 14" width="200"/><br/>Share Message</td>
   </tr>
 </table>
 
