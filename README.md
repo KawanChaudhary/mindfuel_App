@@ -39,7 +39,7 @@
 
 <table>
   <tr>
-    <td align="center"><img src="./screenshots/IMG_4712 2.png" alt="Screenshot 1" width="200"/><br/><b>Screenshot 1</b></td>
+    <td align="center"><img src="./screenshots/IMG_4712 2.PNG" alt="Screenshot 1" width="200"/><br/><b>Screenshot 1</b></td>
     <td align="center"><img src="./screenshots/IMG_4713 2.png" alt="Screenshot 2" width="200"/><br/><b>Screenshot 2</b></td>
     <td align="center"><img src="./screenshots/IMG_4714 2.png" alt="Screenshot 3" width="200"/><br/><b>Screenshot 3</b></td>
     <td align="center"><img src="./screenshots/IMG_4715 2.png" alt="Screenshot 4" width="200"/><br/><b>Screenshot 4</b></td>
